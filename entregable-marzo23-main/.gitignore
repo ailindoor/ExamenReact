@@ -1,0 +1,17 @@
+# Ignorar carpetas de entorno
+node_modules/
+.env
+
+# Ignorar archivos de construcción
+dist/
+build/
+
+# Ignorar configuraciones locales de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de logs
+*.log
+
+# Ignorar configuraciones de editor
+.vscode/
