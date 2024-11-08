@@ -1,12 +1,18 @@
 //Este componente deberia recibir por props y mostrar en pantalla la informacion
 //que envia el usuario
+import styles from "./styles/App.module.css"
+
 
 function Card({ song, artist }) {
   return (
-    <div style={{ border: '1px solid #ccc', padding: '10px', marginTop: '20px' }}>
-      <h2>Información de la Canción</h2>
-      <p><strong>Canción:</strong> {song}</p>
-      <p><strong>Artista:</strong> {artist}</p>
+    <div className={styles.card}>
+      <h2 className={styles.cardTitle}>Información de la Canción</h2>
+      <p className={styles.cardText}>
+        <strong>Canción:</strong> {song}
+      </p>
+      <p className={styles.cardText}>
+        <strong>Artista:</strong> {artist}
+      </p>
     </div>
   );
 }

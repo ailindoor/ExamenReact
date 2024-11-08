@@ -1,57 +1,68 @@
 import { useState } from "react"
 import Card from "./Card";
+import styles from "./styles/App.module.css";
 
 function App() {
-  const [song, setSong] = useState('');
-  const [artist, setArtist] = useState('');
+  const [formData, setFormData] = useState({
+    song: '',
+    artist: '',
+  });
+
   const [error, setError] = useState('');
   const [showCard, setShowCard] = useState(false);
+
+  const handleChange = (e) => {
+    console.log(e.target.name, e.target.value);
+
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
 
-    if (song.length < 3 || song.startsWith(' ')) {
+    if (!formData.song || !formData.artist || formData.song.trim().length <= 3 || formData.artist.length <= 6) {
       setError('Por favor chequea que la información sea correcta');
       return;
     }
 
-    if (artist.length < 6) {
-      setError('Por favor chequea que la información sea correcta');
-      return;
-    }
-
-  
     setShowCard(true);
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: '20px' }}>
+    <div className={styles.container}>
       <h1>Formulario de Canciones</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="song">Canción:</label>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.inputGroup}>
+          <label htmlFor="song" className={styles.label}>Canción:</label>
           <input
             type="text"
             id="song"
-            value={song}
-            onChange={(e) => setSong(e.target.value)}
+            name="song"
+            className={styles.input}
+            value={formData.song}
+            onChange={handleChange}
           />
         </div>
-        <div style={{ marginTop: '10px' }}>
-          <label htmlFor="artist">Artista:</label>
+        <div className={styles.inputGroup}>
+          <label htmlFor="artist" className={styles.label}>Artista:</label>
           <input
             type="text"
             id="artist"
-            value={artist}
-            onChange={(e) => setArtist(e.target.value)}
+            name="artist"
+            className={styles.input}
+            value={formData.artist}
+            onChange={handleChange}
           />
         </div>
-        <button type="submit" style={{ marginTop: '20px' }}>Enviar</button>
+        <button type="submit" className={styles.button}>Enviar</button>
       </form>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {showCard && <Card song={song} artist={artist} />}
+      {error && <p className={styles.error}>{error}</p>}
+      {showCard && <Card song={formData.song} artist={formData.artist} />}
     </div>
   );
 }
